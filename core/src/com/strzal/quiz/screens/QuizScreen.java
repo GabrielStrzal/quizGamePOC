@@ -18,12 +18,12 @@ import java.util.List;
 public class QuizScreen extends BasicMenuScreen {
 
     Question question;
-    List<Integer> questionListIndexes = Arrays.asList(1, 2, 3, 4);
+    List<Integer> questionListIndexShuffler = Arrays.asList(0, 1, 2, 3);
 
     public QuizScreen(BasicGame game, Question question) {
         super(game);
         this.question = question;
-        Collections.shuffle(questionListIndexes);
+        Collections.shuffle(questionListIndexShuffler);
     }
 
 
@@ -39,14 +39,14 @@ public class QuizScreen extends BasicMenuScreen {
         //Set alignment of contents in the table.
         mainTable.center();
 
-        Label questionTextLabel = new Label(question.getQuestionText(), skin);
+        Label questionTextLabel = new Label(question.getQuestionString(), skin);
 
         //Create buttons
-        TextButton choice1Button = new TextButton(question.getAnswers().get(questionListIndexes.get(0)), skin);
+        TextButton choice1Button = new TextButton(question.getAnswers().get(questionListIndexShuffler.get(0)), skin);
         choice1Button.setScale(2);
-        TextButton choice2Button = new TextButton(question.getAnswers().get(questionListIndexes.get(1)), skin);
-        TextButton choice3Button = new TextButton(question.getAnswers().get(questionListIndexes.get(2)), skin);
-        TextButton choice4Button = new TextButton(question.getAnswers().get(questionListIndexes.get(3)), skin);
+        TextButton choice2Button = new TextButton(question.getAnswers().get(questionListIndexShuffler.get(1)), skin);
+        TextButton choice3Button = new TextButton(question.getAnswers().get(questionListIndexShuffler.get(2)), skin);
+        TextButton choice4Button = new TextButton(question.getAnswers().get(questionListIndexShuffler.get(3)), skin);
 
         TextButton quitCurrentQuizListButton = new TextButton("Quit Current Quiz", skin);
 
@@ -54,25 +54,25 @@ public class QuizScreen extends BasicMenuScreen {
         choice1Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                validate(questionListIndexes.get(0));
+                validate(questionListIndexShuffler.get(0));
             }
         });
         choice2Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                validate(questionListIndexes.get(1));
+                validate(questionListIndexShuffler.get(1));
             }
         });
         choice3Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                validate(questionListIndexes.get(2));
+                validate(questionListIndexShuffler.get(2));
             }
         });
         choice4Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                validate(questionListIndexes.get(3));
+                validate(questionListIndexShuffler.get(3));
             }
         });
 

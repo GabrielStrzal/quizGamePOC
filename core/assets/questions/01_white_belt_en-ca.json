@@ -1,36 +1,36 @@
 {
   "questions":[
-  {
-    "questionID" : 1,
-    "questionString": "Question 1",
-    "correctAnswer": 3,
-    "answers" : [
-      {"answer" : "Teste1"},
-      {"answer" : "Teste2"},
-      {"answer" : "Teste3"},
-      {"answer" : "Teste4"}
-    ]
-  },
+    {
+      "questionID" : 1,
+      "questionString": "Question 1",
+      "correctAnswer": 0,
+      "answers" : [
+        "Teste 1",
+        "Teste 2",
+        "Teste 3",
+        "Teste 4"
+      ]
+    },
     {
       "questionID" : 2,
       "questionString": "Question 2",
-      "correctAnswer": 3,
+      "correctAnswer": 0,
       "answers" : [
-        {"answer" : "Teste1"},
-        {"answer" : "Teste2"},
-        {"answer" : "Teste3"},
-        {"answer" : "Teste4"}
+        "Teste 1",
+        "Teste 2",
+        "Teste 3",
+        "Teste 4"
       ]
     },
     {
       "questionID" : 3,
       "questionString": "Question 3 This is a type of test to see what will happen",
-      "correctAnswer": 3,
+      "correctAnswer": 0,
       "answers" : [
-        {"answer" : "Teste1"},
-        {"answer" : "Teste2"},
-        {"answer" : "Teste3"},
-        {"answer" : "Teste4"}
+        "Teste 1",
+        "Teste 2",
+        "Teste 3",
+        "Teste 4"
       ]
     }
   ]
