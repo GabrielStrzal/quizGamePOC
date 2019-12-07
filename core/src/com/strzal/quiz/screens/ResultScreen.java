@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -18,11 +19,9 @@ import com.strzal.gdx.screenManager.ScreenManager;
 import com.strzal.gdx.utils.GdxUtils;
 import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.config.GameConfig;
-import com.strzal.quiz.constants.QuestionsPaths;
-import com.strzal.quiz.controller.LevelController;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
-public class MenuScreen extends ScreenAdapter {
+public class ResultScreen extends ScreenAdapter {
 
     private SpriteBatch batch;
     protected Stage stage;
@@ -33,7 +32,7 @@ public class MenuScreen extends ScreenAdapter {
 
     QuizGame game;
 
-    public MenuScreen(BasicGame game)
+    public ResultScreen(BasicGame game)
     {
         atlas = new TextureAtlas("skins/default/uiskin.atlas");
         skin = new Skin(Gdx.files.internal("skins/default/uiskin.json"), atlas);
@@ -62,24 +61,23 @@ public class MenuScreen extends ScreenAdapter {
         mainTable.setFillParent(true);
         //Set alignment of contents in the table.
         mainTable.center();
-
+        System.out.println();
+        Label resultLabel = new Label("Quiz ended!", skin);
+        Label resultLabelStats = new Label(
+                game.levelController.getNumberOfCorrectAnswers() + " correct answers of "
+                        + game.levelController.getNumberOfTotalQuestions() , skin);
         //Create buttons
-        TextButton playButton = new TextButton("Play", skin);
-        TextButton exitButton = new TextButton("Exit", skin);
+
+        TextButton quitReturnToMenuButton = new TextButton("Return to Menu", skin);
+        TextButton exitButton = new TextButton("Exit Game", skin);
 
         //Add listeners to buttons
-        playButton.addListener(new ClickListener(){
+        quitReturnToMenuButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
-                game.levelController = new LevelController(QuestionsPaths.WHITE_BELT_01 + QuestionsPaths.EN_CA_JSON);
-
-                ScreenManager.getInstance().showScreen(
-                        ScreenEnum.QUIZ_SCREEN, game, game.levelController.getNextQuestion()
-                );
+                ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN, game);
             }
         });
-
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -88,7 +86,11 @@ public class MenuScreen extends ScreenAdapter {
         });
 
         //Add buttons to table
-        mainTable.add(playButton);
+        mainTable.add(resultLabel);
+        mainTable.row();
+        mainTable.add(resultLabelStats);
+        mainTable.row();
+        mainTable.add(quitReturnToMenuButton);
         mainTable.row();
         mainTable.add(exitButton);
 

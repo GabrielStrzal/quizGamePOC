@@ -153,9 +153,8 @@ public class QuizScreen extends ScreenAdapter {
             }
             if(game.levelController.hasMoreQuestionsLeft()) {
                 ScreenManager.getInstance().showScreen(ScreenEnum.QUIZ_SCREEN, game, game.levelController.getNextQuestion());
-            }else{//TODO add finish screen
-                System.out.println(game.levelController.getNumberOfCorrectAnswers() + " correct answers of " + game.levelController.getNumberOfTotalQuestions() );
-                ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN, game);
+            }else{
+                ScreenManager.getInstance().showScreen(ScreenEnum.RESULT_SCREEN, game);
             }
         }
     }
