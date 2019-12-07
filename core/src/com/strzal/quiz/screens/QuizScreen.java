@@ -1,25 +1,13 @@
 package com.strzal.quiz.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.strzal.gdx.BasicGame;
 import com.strzal.gdx.screenManager.ScreenManager;
-import com.strzal.gdx.utils.GdxUtils;
-import com.strzal.quiz.QuizGame;
-import com.strzal.quiz.config.GameConfig;
-import com.strzal.quiz.constants.ImagesPaths;
 import com.strzal.quiz.entities.Question;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
@@ -27,37 +15,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizScreen extends ScreenAdapter {
+public class QuizScreen extends BasicMenuScreen {
 
-    private SpriteBatch batch;
-    protected Stage stage;
-    private Viewport viewport;
-    private OrthographicCamera camera;
-    private TextureAtlas atlas;
-    protected Skin skin;
-
-    QuizGame game;
     Question question;
     List<Integer> questionListIndexes = Arrays.asList(1, 2, 3, 4);
 
     public QuizScreen(BasicGame game, Question question) {
-        atlas = new TextureAtlas(ImagesPaths.UI_SKIN_ATLAS);
-        skin = new Skin(Gdx.files.internal(ImagesPaths.UI_SKIN_JSON), atlas);
-
-        batch = new SpriteBatch();
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT, camera);
-        viewport.apply();
-
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
-
-        stage = new Stage(viewport, batch);
-        this.game = (QuizGame) game;
+        super(game);
         this.question = question;
-
         Collections.shuffle(questionListIndexes);
-
     }
 
 
@@ -156,41 +122,5 @@ public class QuizScreen extends ScreenAdapter {
             ScreenManager.getInstance().showScreen(ScreenEnum.RESULT_SCREEN, game);
         }
 
-    }
-
-    @Override
-    public void render(float delta) {
-        GdxUtils.clearScreen();
-        stage.act();
-        stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height);
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-        skin.dispose();
-        atlas.dispose();
     }
 }
