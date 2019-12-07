@@ -1,7 +1,7 @@
 package com.strzal.quiz.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,7 +18,7 @@ import com.strzal.gdx.utils.GdxUtils;
 import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.config.GameConfig;
 
-public class MenuTestScreen implements Screen {
+public class MenuTestScreen extends ScreenAdapter {
 
     private SpriteBatch batch;
     protected Stage stage;
