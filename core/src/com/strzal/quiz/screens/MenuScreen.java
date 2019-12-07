@@ -3,10 +3,12 @@ package com.strzal.quiz.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -18,6 +20,7 @@ import com.strzal.gdx.screenManager.ScreenManager;
 import com.strzal.gdx.utils.GdxUtils;
 import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.config.GameConfig;
+import com.strzal.quiz.constants.ImagesPaths;
 import com.strzal.quiz.constants.QuestionsPaths;
 import com.strzal.quiz.controller.LevelController;
 import com.strzal.quiz.screenManager.ScreenEnum;
@@ -35,8 +38,8 @@ public class MenuScreen extends ScreenAdapter {
 
     public MenuScreen(BasicGame game)
     {
-        atlas = new TextureAtlas("skins/default/uiskin.atlas");
-        skin = new Skin(Gdx.files.internal("skins/default/uiskin.json"), atlas);
+        atlas = new TextureAtlas(ImagesPaths.UI_SKIN_ATLAS);
+        skin = new Skin(Gdx.files.internal(ImagesPaths.UI_SKIN_JSON), atlas);
 
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -67,6 +70,8 @@ public class MenuScreen extends ScreenAdapter {
         TextButton playButton = new TextButton("Play", skin);
         TextButton exitButton = new TextButton("Exit", skin);
 
+        Image logo = new Image((Texture) game.getAssetManager().get(ImagesPaths.SPIN_LOGO));
+
         //Add listeners to buttons
         playButton.addListener(new ClickListener(){
             @Override
@@ -88,12 +93,44 @@ public class MenuScreen extends ScreenAdapter {
         });
 
         //Add buttons to table
+        mainTable.add(logo).padBottom(100);
+        mainTable.row();
         mainTable.add(playButton);
         mainTable.row();
         mainTable.add(exitButton);
 
         //Add table to stage
         stage.addActor(mainTable);
+
+
+        /*
+
+        https://github.com/libgdx/libgdx/wiki/Table#padding
+
+
+        table.row().colspan(3).expandX().fillX();
+        table.add(topLabel).fillX();
+        table.row().colspan(3).expandX().fillX();
+        table.add(slider).fillX();
+        table.row().colspan(3).expandX().fillX();
+        table.add(anotherLabel).fillX();
+        table.row().expandX().fillX();
+
+        table.add(checkBoxA).expandX().fillX();
+        table.add(checkBoxB).expandX().fillX();
+        table.add(checkBoxC).expandX().fillX();
+        table.row().expandX().fillX();;
+
+        table.add(buttonTable).colspan(3);
+
+        buttonTable.pad(16);
+        buttonTable.row().fillX().expandX();
+        buttonTable.add(buttonA).width(cw/3.0f);
+        buttonTable.add(buttonB).width(cw/3.0f);
+
+        tableContainer.setActor(table);
+        stage.addActor(tableContainer);
+         */
     }
 
     @Override

@@ -12,7 +12,7 @@ public class LoadingPathsImpl implements LoadingPaths {
         List<String> list = new ArrayList<>();
 
         //Menu
-        list.add(ImagesPaths.MENU_BACKGROUND);
+        list.add(ImagesPaths.SPIN_LOGO);
 
         return list;
     }

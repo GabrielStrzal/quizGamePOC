@@ -19,6 +19,7 @@ import com.strzal.gdx.screenManager.ScreenManager;
 import com.strzal.gdx.utils.GdxUtils;
 import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.config.GameConfig;
+import com.strzal.quiz.constants.ImagesPaths;
 import com.strzal.quiz.entities.Question;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
@@ -41,8 +42,8 @@ public class QuizScreen extends ScreenAdapter {
 
     public QuizScreen(BasicGame game, Question question)
     {
-        atlas = new TextureAtlas("skins/default/uiskin.atlas");
-        skin = new Skin(Gdx.files.internal("skins/default/uiskin.json"), atlas);
+        atlas = new TextureAtlas(ImagesPaths.UI_SKIN_ATLAS);
+        skin = new Skin(Gdx.files.internal(ImagesPaths.UI_SKIN_JSON), atlas);
 
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
