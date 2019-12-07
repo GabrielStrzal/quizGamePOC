@@ -1,6 +1,8 @@
-package com.strzal.quiz.constants;
+package com.strzal.quiz.loading;
 
 import com.strzal.gdx.loading.LoadingPaths;
+import com.strzal.quiz.constants.ImagesPaths;
+
 import java.util.ArrayList;
 import java.util.List;
 

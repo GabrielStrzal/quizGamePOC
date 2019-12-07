@@ -14,11 +14,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.strzal.gdx.BasicGame;
+import com.strzal.gdx.screenManager.ScreenManager;
 import com.strzal.gdx.utils.GdxUtils;
 import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.config.GameConfig;
+import com.strzal.quiz.constants.QuestionsPaths;
+import com.strzal.quiz.controller.LevelController;
+import com.strzal.quiz.entities.Question;
+import com.strzal.quiz.json.QuestionJsonParser;
+import com.strzal.quiz.screenManager.ScreenEnum;
 
-public class MenuTestScreen extends ScreenAdapter {
+import java.util.HashMap;
+
+public class MenuScreen extends ScreenAdapter {
 
     private SpriteBatch batch;
     protected Stage stage;
@@ -29,7 +37,7 @@ public class MenuTestScreen extends ScreenAdapter {
 
     QuizGame game;
 
-    public MenuTestScreen(BasicGame game)
+    public MenuScreen(BasicGame game)
     {
         atlas = new TextureAtlas("skins/default/uiskin.atlas");
         skin = new Skin(Gdx.files.internal("skins/default/uiskin.json"), atlas);
@@ -60,17 +68,22 @@ public class MenuTestScreen extends ScreenAdapter {
         mainTable.center();
 
         //Create buttons
-        TextButton playButton = new TextButton("Level 1 Play", skin);
+        TextButton playButton = new TextButton("Play", skin);
         TextButton townButton = new TextButton("Level 2 Town", skin);
         TextButton exitButton = new TextButton("Exit", skin);
 
         //Add listeners to buttons
-//        playButton.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                ScreenManager.getInstance().showScreen(ScreenEnum.GAME_SCREEN, game, 1);
-//            }
-//        });
+        playButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                game.levelController = new LevelController(QuestionsPaths.WHITE_BELT_01 + QuestionsPaths.EN_CA_JSON);
+
+                ScreenManager.getInstance().showScreen(
+                        ScreenEnum.QUIZ_SCREEN, game, game.levelController.getNextQuestion()
+                );
+            }
+        });
 //        townButton.addListener(new ClickListener(){
 //            @Override
 //            public void clicked(InputEvent event, float x, float y) {
@@ -111,17 +124,14 @@ public class MenuTestScreen extends ScreenAdapter {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
