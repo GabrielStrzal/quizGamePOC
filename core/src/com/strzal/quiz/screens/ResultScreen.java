@@ -76,6 +76,7 @@ public class ResultScreen extends ScreenAdapter {
         quitReturnToMenuButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.audioHandler.playButtonSound();
                 ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN, game);
             }
         });

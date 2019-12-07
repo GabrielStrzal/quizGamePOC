@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.strzal.gdx.BasicGame;
 import com.strzal.gdx.screenManager.ScreenManager;
+import com.strzal.quiz.audio.AudioHandler;
 import com.strzal.quiz.config.GameConfig;
 import com.strzal.quiz.controller.LevelController;
 import com.strzal.quiz.loading.LoadingPathsImpl;
@@ -15,6 +16,7 @@ import com.strzal.quiz.screens.MenuScreen;
 public class QuizGame extends BasicGame {
 
 	public LevelController levelController;
+	public AudioHandler audioHandler;
 
 	@Override
 	public void create () {
@@ -23,6 +25,7 @@ public class QuizGame extends BasicGame {
 
 		batch = new SpriteBatch();
 		loadingPaths = new LoadingPathsImpl();
+		audioHandler = new AudioHandler(this);
 
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		ScreenManager.getInstance().initialize(this);

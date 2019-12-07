@@ -40,8 +40,7 @@ public class QuizScreen extends ScreenAdapter {
     Question question;
     List<Integer> questionListIndexes = Arrays.asList(1, 2, 3, 4);
 
-    public QuizScreen(BasicGame game, Question question)
-    {
+    public QuizScreen(BasicGame game, Question question) {
         atlas = new TextureAtlas(ImagesPaths.UI_SKIN_ATLAS);
         skin = new Skin(Gdx.files.internal(ImagesPaths.UI_SKIN_JSON), atlas);
 
@@ -86,34 +85,35 @@ public class QuizScreen extends ScreenAdapter {
         TextButton quitCurrentQuizListButton = new TextButton("Quit Current Quiz", skin);
 
         //Add listeners to buttons
-        choice1Button.addListener(new ClickListener(){
+        choice1Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 validate(questionListIndexes.get(0));
             }
         });
-        choice2Button.addListener(new ClickListener(){
+        choice2Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 validate(questionListIndexes.get(1));
             }
         });
-        choice3Button.addListener(new ClickListener(){
+        choice3Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 validate(questionListIndexes.get(2));
             }
         });
-        choice4Button.addListener(new ClickListener(){
+        choice4Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 validate(questionListIndexes.get(3));
             }
         });
 
-        quitCurrentQuizListButton.addListener(new ClickListener(){
+        quitCurrentQuizListButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.audioHandler.playButtonSound();
                 ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN, game);
             }
         });
@@ -141,23 +141,21 @@ public class QuizScreen extends ScreenAdapter {
         //Add table to stage
         stage.addActor(mainTable);
     }
-    private void validate(int choice){
-        System.out.println("Choice is:" + choice);
 
-        if(choice != 0){
-            if(choice == question.getCorrectAnswer()) {
-                game.levelController.increaseCorrectAnswers();
-                System.out.println("Success");
+    private void validate(int choice) {
+        if (choice == question.getCorrectAnswer()) {
+            game.audioHandler.playCorrectAnswerSound();
+            game.levelController.increaseCorrectAnswers();
 
-            }else{
-                System.out.println("Not Cool");
-            }
-            if(game.levelController.hasMoreQuestionsLeft()) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.QUIZ_SCREEN, game, game.levelController.getNextQuestion());
-            }else{
-                ScreenManager.getInstance().showScreen(ScreenEnum.RESULT_SCREEN, game);
-            }
+        } else {
+            game.audioHandler.playWrongAnswerSound();
         }
+        if (game.levelController.hasMoreQuestionsLeft()) {
+            ScreenManager.getInstance().showScreen(ScreenEnum.QUIZ_SCREEN, game, game.levelController.getNextQuestion());
+        } else {
+            ScreenManager.getInstance().showScreen(ScreenEnum.RESULT_SCREEN, game);
+        }
+
     }
 
     @Override

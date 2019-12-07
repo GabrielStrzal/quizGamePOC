@@ -77,6 +77,7 @@ public class MenuScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
+                game.audioHandler.playButtonSound();
                 game.levelController = new LevelController(QuestionsPaths.WHITE_BELT_01 + QuestionsPaths.EN_CA_JSON);
 
                 ScreenManager.getInstance().showScreen(
