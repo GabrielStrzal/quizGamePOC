@@ -13,6 +13,8 @@ public class LevelController {
     QuestionJsonParser parser = new QuestionJsonParser();
     @Getter
     int numberOfCorrectAnswers = 0;
+    @Getter
+    int numberOfLivesLeft = 3;
 
     public LevelController(String questionJson){
         matchStats = new MatchStats();
@@ -35,6 +37,10 @@ public class LevelController {
 
     public int getNumberOfTotalQuestions(){
         return matchStats.getNumberOfQuestions();
+    }
+
+    public void removeOneHeart(){
+        numberOfLivesLeft--;
     }
 
 

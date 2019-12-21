@@ -61,6 +61,7 @@ public class BasicMenuScreen extends ScreenAdapter {
         viewport.update(width, height);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
+        stage.getViewport().update(width, height);
     }
 
     @Override

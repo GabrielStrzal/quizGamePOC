@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.strzal.gdx.BasicGame;
 import com.strzal.gdx.screenManager.ScreenManager;
 import com.strzal.quiz.entities.Question;
+import com.strzal.quiz.hud.Hud;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
 import java.util.Arrays;
@@ -19,11 +20,13 @@ public class QuizScreen extends BasicMenuScreen {
 
     Question question;
     List<Integer> questionListIndexShuffler = Arrays.asList(0, 1, 2, 3);
+    Hud hud;
 
     public QuizScreen(BasicGame game, Question question) {
         super(game);
         this.question = question;
         Collections.shuffle(questionListIndexShuffler);
+        hud = new Hud(this.game);
     }
 
 
@@ -110,17 +113,42 @@ public class QuizScreen extends BasicMenuScreen {
 
     private void validate(int choice) {
         if (choice == question.getCorrectAnswer()) {
-            game.audioHandler.playCorrectAnswerSound();
-            game.levelController.increaseCorrectAnswers();
-
+            updateCorrectAnswer();
         } else {
-            game.audioHandler.playWrongAnswerSound();
+            updateWrongAnswer();
         }
-        if (game.levelController.hasMoreQuestionsLeft()) {
+
+
+        if(game.levelController.getNumberOfLivesLeft() <= 0){
+            //TODO game over screen
+            ScreenManager.getInstance().showScreen(ScreenEnum.RESULT_SCREEN, game);
+        } else if (game.levelController.hasMoreQuestionsLeft()) {
             ScreenManager.getInstance().showScreen(ScreenEnum.QUIZ_SCREEN, game, game.levelController.getNextQuestion());
         } else {
             ScreenManager.getInstance().showScreen(ScreenEnum.RESULT_SCREEN, game);
         }
 
+    }
+
+    private void updateCorrectAnswer(){
+        game.audioHandler.playCorrectAnswerSound();
+        game.levelController.increaseCorrectAnswers();
+    }
+
+    private void updateWrongAnswer(){
+        game.audioHandler.playWrongAnswerSound();
+        game.levelController.removeOneHeart();
+    }
+
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+        hud.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        hud.resize(width, height);
     }
 }
