@@ -3,7 +3,6 @@ package com.strzal.quiz.controller;
 import com.strzal.quiz.entities.MatchStats;
 import com.strzal.quiz.entities.Question;
 import com.strzal.quiz.json.QuestionJsonParser;
-import lombok.Getter;
 
 import java.util.Collections;
 
@@ -11,9 +10,7 @@ public class LevelController {
 
     MatchStats matchStats;
     QuestionJsonParser parser = new QuestionJsonParser();
-    @Getter
     int numberOfCorrectAnswers = 0;
-    @Getter
     int numberOfLivesLeft = 3;
 
     public LevelController(String questionJson){
@@ -43,5 +40,11 @@ public class LevelController {
         numberOfLivesLeft--;
     }
 
+    public int getNumberOfCorrectAnswers() {
+        return numberOfCorrectAnswers;
+    }
 
+    public int getNumberOfLivesLeft() {
+        return numberOfLivesLeft;
+    }
 }

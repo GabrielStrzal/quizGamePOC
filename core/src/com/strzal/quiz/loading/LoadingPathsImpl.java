@@ -1,6 +1,6 @@
 package com.strzal.quiz.loading;
 
-import com.strzal.gdx.loading.LoadingPaths;
+import com.strzal.gdxUtilLib.loading.LoadingPaths;
 import com.strzal.quiz.constants.ImagesPaths;
 import com.strzal.quiz.constants.SoundPaths;
 
