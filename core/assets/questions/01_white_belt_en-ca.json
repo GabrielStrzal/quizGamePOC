@@ -1,5 +1,4 @@
-{
-  "questions":[
+  [
     {
       "questionID" : 1,
       "questionString": "Question 1",
@@ -9,7 +8,8 @@
         "Teste 2",
         "Teste 3",
         "Teste 4"
-      ]
+      ],
+      "imagePath": "images/kicks/02_back.JPG"
     },
     {
       "questionID" : 2,
@@ -56,4 +56,3 @@
       ]
     }
   ]
-}

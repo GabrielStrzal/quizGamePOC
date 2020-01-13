@@ -2,6 +2,7 @@ package com.strzal.quiz.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -51,7 +52,7 @@ public class BasicMenuScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        GdxUtils.clearScreen();
+        GdxUtils.clearScreen(Color.WHITE);
         stage.act();
         stage.draw();
     }

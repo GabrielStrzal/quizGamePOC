@@ -19,7 +19,6 @@ public class Hud {
 
     private Image heartImage;
 
-    private static int HEART_SIZE = 50;
     private static int HEART_PADDING_X = 60;
     private static int HEART_PADDING_Y = 100;
 
@@ -44,8 +43,8 @@ public class Hud {
     }
 
     private void addHeart(long xPosition) {
-        heartImage = new Image((Texture) assetManager.get(ImagesPaths.SPIN_LOGO));
-        heartImage.setSize(HEART_SIZE,HEART_SIZE);
+        heartImage = new Image((Texture) assetManager.get(ImagesPaths.HEART));
+        //heartImage.setSize(HEART_SIZE,HEART_SIZE);
         heartImage.setPosition(xPosition, GameConfig.SCREEN_HEIGHT - HEART_PADDING_Y);
         stage.addActor(heartImage);
     }

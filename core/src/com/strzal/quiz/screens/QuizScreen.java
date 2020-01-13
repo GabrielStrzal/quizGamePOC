@@ -1,13 +1,15 @@
 package com.strzal.quiz.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.strzal.gdxUtilLib.BasicGame;
 import com.strzal.gdxUtilLib.screenManager.ScreenManager;
+import com.strzal.quiz.constants.ImagesPaths;
 import com.strzal.quiz.entities.Question;
 import com.strzal.quiz.hud.Hud;
 import com.strzal.quiz.screenManager.ScreenEnum;
@@ -42,16 +44,45 @@ public class QuizScreen extends BasicMenuScreen {
         //Set alignment of contents in the table.
         mainTable.center();
 
+        // Image
+        Image questionImage;
+        if(question.getImagePath() != null){
+            questionImage = new Image(new Texture(Gdx.files.internal(question.getImagePath())));
+        } else {
+            questionImage = new Image(new Texture(Gdx.files.internal("images/kicks/01_round.JPG")));
+        }
+
+        // Question
         Label questionTextLabel = new Label(question.getQuestionString(), skin);
 
-        //Create buttons
-        TextButton choice1Button = new TextButton(question.getAnswers().get(questionListIndexShuffler.get(0)), skin);
-        choice1Button.setScale(2);
-        TextButton choice2Button = new TextButton(question.getAnswers().get(questionListIndexShuffler.get(1)), skin);
-        TextButton choice3Button = new TextButton(question.getAnswers().get(questionListIndexShuffler.get(2)), skin);
-        TextButton choice4Button = new TextButton(question.getAnswers().get(questionListIndexShuffler.get(3)), skin);
+        //Create Style
+        Texture buttonTexture = game.getAssetManager().get(ImagesPaths.QUESTION_BUTTON);
+        Texture buttonTexturePressed = game.getAssetManager().get(ImagesPaths.QUESTION_BUTTON_PRESSED);
+        ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(
+                new TextureRegionDrawable(buttonTexture),
+                new TextureRegionDrawable(buttonTexturePressed),
+                new TextureRegionDrawable(buttonTexture),
+                new BitmapFont());
 
-        TextButton quitCurrentQuizListButton = new TextButton("Quit Current Quiz", skin);
+
+        //Create Exit Style
+        Texture exitButtonTexture = game.getAssetManager().get(ImagesPaths.EXIT_BUTTON);
+        Texture exitButtonTexturePressed = game.getAssetManager().get(ImagesPaths.EXIT_BUTTON_PRESSED);
+        ImageTextButton.ImageTextButtonStyle exitStyle = new ImageTextButton.ImageTextButtonStyle(
+                new TextureRegionDrawable(exitButtonTexture),
+                new TextureRegionDrawable(exitButtonTexturePressed),
+                new TextureRegionDrawable(exitButtonTexture),
+                new BitmapFont());
+
+
+        //Create buttons
+        ImageTextButton choice1Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(0)), style);
+        ImageTextButton choice2Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(1)), style);
+        ImageTextButton choice3Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(2)), style);
+        ImageTextButton choice4Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(3)), style);
+
+
+        ImageTextButton quitCurrentQuizListButton = new ImageTextButton("Quit Current Quiz", exitStyle);
 
         //Add listeners to buttons
         choice1Button.addListener(new ClickListener() {
@@ -88,19 +119,24 @@ public class QuizScreen extends BasicMenuScreen {
         });
 
         //Add buttons to table
+        ;
 
 
-        mainTable.add(questionTextLabel);
+        mainTable.add(questionImage).padBottom(10);
+        mainTable.row();
+        mainTable.add(questionTextLabel).padBottom(10);
         mainTable.row();
 
         Table questionTable = new Table();
         questionTable.center();
 
-        questionTable.add(choice1Button);
-        questionTable.add(choice2Button);
+        questionTable.add(choice1Button).padBottom(10);
         questionTable.row();
-        questionTable.add(choice3Button);
-        questionTable.add(choice4Button);
+        questionTable.add(choice2Button).padBottom(10);
+        questionTable.row();
+        questionTable.add(choice3Button).padBottom(10);
+        questionTable.row();
+        questionTable.add(choice4Button).padBottom(30);
         questionTable.row();
 
         mainTable.add(questionTable);

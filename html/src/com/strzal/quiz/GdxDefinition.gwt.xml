@@ -3,6 +3,9 @@
 <module rename-to="html">
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 	<inherits name='com.badlogic.gdx.physics.box2d.box2d-gwt' />
+	<inherits name='com.strzal.gdxUtilLib.gdxUtilLib' />
+
+
 
 	<inherits name='QuizGame' />
 	<entry-point class='com.strzal.quiz.client.HtmlLauncher' />
@@ -10,4 +13,7 @@
 	<set-configuration-property name="gdx.assetpath" value="../core/assets" />
 	<set-property name="user.agent" value="gecko1_8, safari"/>
 	<collapse-property name="user.agent" values="*" />
+
+	<extend-configuration-property name="gdx.reflect.include" value="com.strzal.quiz.json.InternalQuestions" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.strzal.quiz.entities.Question" />
 </module>

@@ -1,13 +1,14 @@
 package com.strzal.quiz.entities;
 
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Question {
     private int questionID;
     private String questionString;
-    private List<String> answers;
+    private ArrayList<String> answers;
     private int correctAnswer;
+    private String imagePath;
 
     public int getQuestionID() {
         return questionID;
@@ -25,11 +26,11 @@ public class Question {
         this.questionString = questionString;
     }
 
-    public List<String> getAnswers() {
+    public ArrayList<String> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<String> answers) {
+    public void setAnswers(ArrayList<String> answers) {
         this.answers = answers;
     }
 
@@ -39,5 +40,13 @@ public class Question {
 
     public void setCorrectAnswer(int correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

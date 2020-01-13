@@ -1,0 +1,27 @@
+{
+  "class": "com.strzal.quiz.json.InternalQuestions",
+  "questions": [
+    {
+      "questionID": 1,
+      "questionString": "This is the question",
+      "answers": [
+        "Answer 1",
+        "Answer 2",
+        "Answer 3",
+        "Answer 4"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "questionID": 2,
+      "questionString": "This is the question2",
+      "answers": [
+        "Answer 1",
+        "Answer 2",
+        "Answer 3",
+        "Answer 4"
+      ],
+      "correctAnswer": 1
+    }
+  ]
+}
