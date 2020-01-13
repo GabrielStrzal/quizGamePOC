@@ -14,10 +14,10 @@ import com.strzal.quiz.constants.QuestionsPaths;
 import com.strzal.quiz.controller.LevelController;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
-public class MenuScreen extends BasicMenuScreen {
+public class QuizSelectionScreen extends BasicMenuScreen {
 
 
-    public MenuScreen(BasicGame game) {
+    public QuizSelectionScreen(BasicGame game) {
         super(game);
     }
 
@@ -37,14 +37,15 @@ public class MenuScreen extends BasicMenuScreen {
 
 
         //Create buttons
-        ImageTextButton playButton = new ImageTextButton("Select Quiz", style);
+        ImageTextButton barreJaune = new ImageTextButton("Barre jaune", style);
+        ImageTextButton numbersInKorean = new ImageTextButton("Compter de 1 à 10 en coréen", style);
         ImageTextButton exitButton = new ImageTextButton("Exit", exitStyle);
 
 
         Image logo = new Image((Texture) game.getAssetManager().get(ImagesPaths.SPIN_LOGO));
 
         //Add listeners to buttons
-        playButton.addListener(new ClickListener() {
+        barreJaune.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
@@ -52,7 +53,7 @@ public class MenuScreen extends BasicMenuScreen {
                 game.levelController = new LevelController(QuestionsPaths.WHITE_BELT_01 + QuestionsPaths.EN_CA_JSON);
 
                 ScreenManager.getInstance().showScreen(
-                        ScreenEnum.QUIZ_SELECTION_SCREEN, game, game.levelController.getNextQuestion()
+                        ScreenEnum.QUIZ_SCREEN, game, game.levelController.getNextQuestion()
                 );
             }
         });
@@ -67,7 +68,9 @@ public class MenuScreen extends BasicMenuScreen {
         //Add buttons to table
         mainTable.add(logo).padBottom(100);
         mainTable.row();
-        mainTable.add(playButton).padBottom(10);
+        mainTable.add(barreJaune).padBottom(10);
+        mainTable.row();
+        mainTable.add(numbersInKorean).padBottom(10);
         mainTable.row();
         mainTable.add(exitButton);
 

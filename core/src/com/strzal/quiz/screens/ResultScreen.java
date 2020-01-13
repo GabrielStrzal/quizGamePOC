@@ -1,18 +1,13 @@
 package com.strzal.quiz.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.strzal.gdxUtilLib.BasicGame;
 import com.strzal.gdxUtilLib.screenManager.ScreenManager;
-import com.strzal.quiz.constants.ImagesPaths;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
 public class ResultScreen extends BasicMenuScreen {
@@ -25,6 +20,7 @@ public class ResultScreen extends BasicMenuScreen {
 
     @Override
     public void show() {
+        super.show();
         //Stage should control input:
         Gdx.input.setInputProcessor(stage);
 
@@ -39,27 +35,6 @@ public class ResultScreen extends BasicMenuScreen {
         Label resultLabelStats = new Label(
                 game.levelController.getNumberOfCorrectAnswers() + " correct answers of "
                         + game.levelController.getNumberOfTotalQuestions(), skin);
-
-
-        //Create Style
-        Texture buttonTexture = game.getAssetManager().get(ImagesPaths.QUESTION_BUTTON);
-        Texture buttonTexturePressed = game.getAssetManager().get(ImagesPaths.QUESTION_BUTTON_PRESSED);
-        ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(
-                new TextureRegionDrawable(buttonTexture),
-                new TextureRegionDrawable(buttonTexturePressed),
-                new TextureRegionDrawable(buttonTexture),
-                new BitmapFont());
-
-
-        //Create Exit Style
-        Texture exitButtonTexture = game.getAssetManager().get(ImagesPaths.EXIT_BUTTON);
-        Texture exitButtonTexturePressed = game.getAssetManager().get(ImagesPaths.EXIT_BUTTON_PRESSED);
-        ImageTextButton.ImageTextButtonStyle exitStyle = new ImageTextButton.ImageTextButtonStyle(
-                new TextureRegionDrawable(exitButtonTexture),
-                new TextureRegionDrawable(exitButtonTexturePressed),
-                new TextureRegionDrawable(exitButtonTexture),
-                new BitmapFont());
-
 
 
         //Create buttons

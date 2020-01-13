@@ -9,6 +9,7 @@ import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.entities.Question;
 import com.strzal.quiz.screens.MenuScreen;
 import com.strzal.quiz.screens.QuizScreen;
+import com.strzal.quiz.screens.QuizSelectionScreen;
 import com.strzal.quiz.screens.ResultScreen;
 
 /**
@@ -25,6 +26,11 @@ public enum ScreenEnum implements ScreenEnumInterface {
     MENU_SCREEN {
         public Screen getScreen(Object... params) {
             return new MenuScreen((QuizGame)params[0]);
+        }
+    },
+    QUIZ_SELECTION_SCREEN {
+        public Screen getScreen(Object... params) {
+            return new QuizSelectionScreen((QuizGame)params[0]);
         }
     },
     QUIZ_SCREEN {
