@@ -51,7 +51,18 @@ public class QuizSelectionScreen extends BasicMenuScreen {
 
                 game.audioHandler.playButtonSound();
                 game.levelController = new LevelController(QuestionsPaths.WHITE_BELT_01 + QuestionsPaths.EN_CA_JSON);
+                ScreenManager.getInstance().showScreen(
+                        ScreenEnum.QUIZ_SCREEN, game, game.levelController.getNextQuestion()
+                );
+            }
+        });
 
+        numbersInKorean.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                game.audioHandler.playButtonSound();
+                game.levelController = new LevelController(QuestionsPaths.NUMBERS_IN_KOREAN_01 + QuestionsPaths.FR_CA_JSON);
                 ScreenManager.getInstance().showScreen(
                         ScreenEnum.QUIZ_SCREEN, game, game.levelController.getNextQuestion()
                 );

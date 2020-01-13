@@ -49,11 +49,7 @@ public class MenuScreen extends BasicMenuScreen {
             public void clicked(InputEvent event, float x, float y) {
 
                 game.audioHandler.playButtonSound();
-                game.levelController = new LevelController(QuestionsPaths.WHITE_BELT_01 + QuestionsPaths.EN_CA_JSON);
-
-                ScreenManager.getInstance().showScreen(
-                        ScreenEnum.QUIZ_SELECTION_SCREEN, game, game.levelController.getNextQuestion()
-                );
+                ScreenManager.getInstance().showScreen( ScreenEnum.QUIZ_SELECTION_SCREEN, game );
             }
         });
 

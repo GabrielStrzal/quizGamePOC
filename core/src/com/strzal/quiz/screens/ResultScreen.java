@@ -58,11 +58,11 @@ public class ResultScreen extends BasicMenuScreen {
         });
 
         //Add buttons to table
-        mainTable.add(resultLabel);
+        mainTable.add(resultLabel).padBottom(10);
         mainTable.row();
-        mainTable.add(resultLabelStats);
+        mainTable.add(resultLabelStats).padBottom(10);
         mainTable.row();
-        mainTable.add(quitReturnToMenuButton);
+        mainTable.add(quitReturnToMenuButton).padBottom(10);
         mainTable.row();
         mainTable.add(exitButton);
 
