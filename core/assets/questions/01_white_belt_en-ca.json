@@ -4,22 +4,63 @@
       "questionString": "Question 1",
       "correctAnswer": 0,
       "answers" : [
-        "Teste 1",
-        "Teste 2",
-        "Teste 3",
-        "Teste 4"
+        {
+          "answerType": "TEXT",
+          "text": "Teste 1",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 2",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 3",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 4",
+          "audio": "",
+          "image": ""
+        }
       ],
-      "imagePath": "images/kicks/02_back.JPG"
+      "imagePath": "images/kicks/02_back.JPG",
+      "audioPath": ""
     },
     {
       "questionID" : 2,
       "questionString": "Question 2",
       "correctAnswer": 0,
       "answers" : [
-        "Teste 1",
-        "Teste 2",
-        "Teste 3",
-        "Teste 4"
+        {
+          "answerType": "TEXT",
+          "text": "Teste 1",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 2",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 3",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 4",
+          "audio": "",
+          "image": ""
+        }
       ]
     },
     {
@@ -27,10 +68,30 @@
       "questionString": "Question 3 This is a type of test to see what will happen",
       "correctAnswer": 0,
       "answers" : [
-        "Teste 1",
-        "Teste 2",
-        "Teste 3",
-        "Teste 4"
+        {
+          "answerType": "TEXT",
+          "text": "Teste 1",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 2",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 3",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 4",
+          "audio": "",
+          "image": ""
+        }
       ]
     },
     {
@@ -38,10 +99,30 @@
       "questionString": "Question 4 This is a type of test to see what will happen",
       "correctAnswer": 0,
       "answers" : [
-        "Teste 1",
-        "Teste 2",
-        "Teste 3",
-        "Teste 4"
+        {
+          "answerType": "TEXT",
+          "text": "Teste 1",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 2",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 3",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 4",
+          "audio": "",
+          "image": ""
+        }
       ]
     },
     {
@@ -49,10 +130,46 @@
       "questionString": "Question 5 This is a type of test to see what will happen",
       "correctAnswer": 0,
       "answers" : [
-        "Teste 1",
-        "Teste 2",
-        "Teste 3",
-        "Teste 4"
+        {
+          "answerType": "TEXT",
+          "text": "Teste 1",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 2",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 3",
+          "audio": "",
+          "image": ""
+        },
+        {
+          "answerType": "TEXT",
+          "text": "Teste 4",
+          "audio": "",
+          "image": ""
+        }
       ]
+    },
+    {
+      "questionID" : 6,
+      "questionType" : "TrueFalse",
+      "questionString": "True False question",
+      "correctAnswer": 0,
+      "answers" : [
+        {
+          "answerType": "TEXT",
+          "text": "True",
+          "audio": "",
+          "image": ""
+        }
+      ],
+      "imagePath": "images/kicks/02_back.JPG",
+      "audioPath": ""
     }
   ]

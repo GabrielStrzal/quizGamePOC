@@ -1,17 +1,17 @@
 package com.strzal.quiz.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.strzal.gdxUtilLib.BasicGame;
+import com.badlogic.gdx.utils.Align;
 import com.strzal.gdxUtilLib.screenManager.ScreenManager;
+import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.entities.Question;
 import com.strzal.quiz.hud.Hud;
+import com.strzal.quiz.hud.HudMode;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
 import java.util.Arrays;
@@ -24,11 +24,21 @@ public class QuizScreen extends BasicMenuScreen {
     List<Integer> questionListIndexShuffler = Arrays.asList(0, 1, 2, 3);
     Hud hud;
 
-    public QuizScreen(BasicGame game, Question question) {
+    private ImageTextButton choice1Button;
+    private ImageTextButton choice2Button;
+    private ImageTextButton choice3Button;
+    private ImageTextButton choice4Button;
+
+    private Table questionTable;
+
+    private int initialValue = 10;
+    private int playerChoice = initialValue;
+
+    public QuizScreen(QuizGame game, Question question) {
         super(game);
         this.question = question;
         Collections.shuffle(questionListIndexShuffler);
-        hud = new Hud(this.game);
+        hud = new Hud(this.game, HudMode.QUIZ_MODE);
     }
 
 
@@ -36,14 +46,19 @@ public class QuizScreen extends BasicMenuScreen {
     public void show() {
         super.show();
         //Stage should control input:
-        Gdx.input.setInputProcessor(stage);
+
+        //Not sure
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);
+        inputMultiplexer.addProcessor(hud.getStage());
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
         //Create Table
         Table mainTable = new Table();
         //Set table to fill stage
         mainTable.setFillParent(true);
         //Set alignment of contents in the table.
-        mainTable.center();
+        mainTable.center().top().left().padTop(250).padLeft(40);
 
         // Image
         Image questionImage;
@@ -54,63 +69,147 @@ public class QuizScreen extends BasicMenuScreen {
         }
 
         // Question
-        Label questionTextLabel = new Label(question.getQuestionString(), skin);
+        Label questionTextLabel = new Label(question.getQuestionString(), labelStyle);
+        questionTextLabel.setWrap(true);
+        questionTextLabel.setAlignment(Align.center);
+        questionTextLabel.setFillParent(true);
+
+        Container container = new Container(questionTextLabel);
+        container.width(870);
+
+        VerticalGroup verticalGroup = new VerticalGroup();
+        verticalGroup.addActor(container);
 
 
+
+
+
+        //Add buttons to table
+        mainTable.add(questionImage).padBottom(10);
+        mainTable.row();
+        mainTable.add(verticalGroup).padBottom(10);
+        mainTable.row();
+
+
+
+
+        //Add table to stage
+        stage.addActor(mainTable);
+
+        questionTable = new Table();
+        questionTable.center().bottom().left().padBottom(50).padLeft(40);
+
+
+
+        if(!"TrueFalse".equals(question.getQuestionType())){
+            createAnswersButtons();
+        } else {
+            createTrueFalseButtons();
+        }
+
+        addCheckButton();
+
+        stage.addActor(questionTable);
+
+    }
+
+    private void addCheckButton(){
+        ImageTextButton validateButton = new ImageTextButton("CHECK", greenButtonStyle);
+        validateButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(playerChoice != initialValue){
+                    validate(playerChoice);
+                }
+
+            }
+        });
+
+        questionTable.add(validateButton).padBottom(30);
+        questionTable.row();
+    }
+
+    private void createTrueFalseButtons() {
         //Create buttons
-        ImageTextButton choice1Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(0)), style);
-        ImageTextButton choice2Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(1)), style);
-        ImageTextButton choice3Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(2)), style);
-        ImageTextButton choice4Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(3)), style);
-
-
-        ImageTextButton quitCurrentQuizListButton = new ImageTextButton("Quit Current Quiz", exitStyle);
+        final ImageTextButton choice1Button = new ImageTextButton("True", blueButtonStyle);
+        final ImageTextButton choice2Button = new ImageTextButton("False", blueButtonStyle);
 
         //Add listeners to buttons
         choice1Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                validate(questionListIndexShuffler.get(0));
+                playerChoice = 0;
+                choice1Button.setChecked(true);
+                choice2Button.setChecked(false);
             }
         });
         choice2Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                validate(questionListIndexShuffler.get(1));
+                playerChoice = 1;
+                choice1Button.setChecked(false);
+                choice2Button.setChecked(true);
+            }
+        });
+
+
+        questionTable.add(choice1Button).padBottom(10);
+        questionTable.row();
+        questionTable.add(choice2Button).padBottom(30);
+        questionTable.row();
+    }
+
+
+    private void createAnswersButtons(){
+        //Create buttons
+        final ImageTextButton choice1Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(0)).getText(), blueButtonStyle);
+        final ImageTextButton choice2Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(1)).getText(), blueButtonStyle);
+        final ImageTextButton choice3Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(2)).getText(), blueButtonStyle);
+        final ImageTextButton choice4Button = new ImageTextButton(question.getAnswers().get(questionListIndexShuffler.get(3)).getText(), blueButtonStyle);
+
+
+
+        //Add listeners to buttons
+        choice1Button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                playerChoice = questionListIndexShuffler.get(0);
+                choice1Button.setChecked(true);
+                choice2Button.setChecked(false);
+                choice3Button.setChecked(false);
+                choice4Button.setChecked(false);
+            }
+        });
+        choice2Button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                playerChoice = questionListIndexShuffler.get(1);
+                choice1Button.setChecked(false);
+                choice2Button.setChecked(true);
+                choice3Button.setChecked(false);
+                choice4Button.setChecked(false);
             }
         });
         choice3Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                validate(questionListIndexShuffler.get(2));
+                playerChoice = questionListIndexShuffler.get(2);
+                choice1Button.setChecked(false);
+                choice2Button.setChecked(false);
+                choice3Button.setChecked(true);
+                choice4Button.setChecked(false);
             }
         });
         choice4Button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                validate(questionListIndexShuffler.get(3));
+                playerChoice = questionListIndexShuffler.get(3);
+                choice1Button.setChecked(false);
+                choice2Button.setChecked(false);
+                choice3Button.setChecked(false);
+                choice4Button.setChecked(true);
             }
         });
-
-        quitCurrentQuizListButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.audioHandler.playButtonSound();
-                ScreenManager.getInstance().showScreen(ScreenEnum.MENU_SCREEN, game);
-            }
-        });
-
-        //Add buttons to table
-        ;
-
-
-        mainTable.add(questionImage).padBottom(10);
-        mainTable.row();
-        mainTable.add(questionTextLabel).padBottom(10);
-        mainTable.row();
-
-        Table questionTable = new Table();
-        questionTable.center();
 
         questionTable.add(choice1Button).padBottom(10);
         questionTable.row();
@@ -118,15 +217,13 @@ public class QuizScreen extends BasicMenuScreen {
         questionTable.row();
         questionTable.add(choice3Button).padBottom(10);
         questionTable.row();
-        questionTable.add(choice4Button).padBottom(30);
+        questionTable.add(choice4Button).padBottom(10);
         questionTable.row();
 
-        mainTable.add(questionTable);
-        mainTable.row();
-        mainTable.add(quitCurrentQuizListButton);
+    }
 
-        //Add table to stage
-        stage.addActor(mainTable);
+    private void unCheckAll(){
+
     }
 
     private void validate(int choice) {

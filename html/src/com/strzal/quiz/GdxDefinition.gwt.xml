@@ -16,4 +16,5 @@
 
 	<extend-configuration-property name="gdx.reflect.include" value="com.strzal.quiz.json.InternalQuestions" />
 	<extend-configuration-property name="gdx.reflect.include" value="com.strzal.quiz.entities.Question" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.strzal.quiz.entities.Answer" />
 </module>

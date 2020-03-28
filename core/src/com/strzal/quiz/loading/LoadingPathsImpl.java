@@ -14,11 +14,18 @@ public class LoadingPathsImpl implements LoadingPaths {
 
         //Menu
         list.add(ImagesPaths.SPIN_LOGO);
-        list.add(ImagesPaths.QUESTION_BUTTON);
-        list.add(ImagesPaths.QUESTION_BUTTON_PRESSED);
+        list.add(ImagesPaths.QUESTION_GREEN_BUTTON);
+        list.add(ImagesPaths.QUESTION_GREEN_BUTTON_PRESSED);
+
+        list.add(ImagesPaths.QUESTION_BLUE_BUTTON);
+        list.add(ImagesPaths.QUESTION_BLUE_BUTTON_PRESSED);
+        list.add(ImagesPaths.QUESTION_BLUE_BUTTON_CHECKED);
 
         list.add(ImagesPaths.EXIT_BUTTON);
         list.add(ImagesPaths.EXIT_BUTTON_PRESSED);
+
+        list.add(ImagesPaths.EXIT_CROSS);
+        list.add(ImagesPaths.EXIT_CROSS_PRESSED);
 
         list.add(ImagesPaths.HEART);
 

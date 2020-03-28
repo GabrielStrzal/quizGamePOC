@@ -5,19 +5,23 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.strzal.gdxUtilLib.BasicGame;
 import com.strzal.gdxUtilLib.screenManager.ScreenManager;
+import com.strzal.quiz.QuizGame;
+import com.strzal.quiz.config.GameConfig;
 import com.strzal.quiz.constants.ImagesPaths;
-import com.strzal.quiz.constants.QuestionsPaths;
-import com.strzal.quiz.controller.LevelController;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
 public class MenuScreen extends BasicMenuScreen {
 
+    private static final int GAME_VERSION_X_POSITION = 40;
+    private static final int GAME_VERSION_Y_POSITION = (int) (GameConfig.SCREEN_HEIGHT - 70);
 
-    public MenuScreen(BasicGame game) {
+
+
+    public MenuScreen(QuizGame game) {
         super(game);
     }
 
@@ -33,11 +37,11 @@ public class MenuScreen extends BasicMenuScreen {
         //Set table to fill stage
         mainTable.setFillParent(true);
         //Set alignment of contents in the table.
-        mainTable.center();
+        mainTable.center().bottom().left().padBottom(50).padLeft(40);
 
 
         //Create buttons
-        ImageTextButton playButton = new ImageTextButton("Select Quiz", style);
+        ImageTextButton playButton = new ImageTextButton("Select Quiz", greenButtonStyle);
         ImageTextButton exitButton = new ImageTextButton("Exit", exitStyle);
 
 
@@ -61,44 +65,33 @@ public class MenuScreen extends BasicMenuScreen {
         });
 
         //Add buttons to table
-        mainTable.add(logo).padBottom(100);
+//        mainTable.add(logo).padBottom(100);
         mainTable.row();
-        mainTable.add(playButton).padBottom(10);
-        mainTable.row();
-        mainTable.add(exitButton);
+        mainTable.add(playButton).padBottom(30);
+        //mainTable.row();
+        //mainTable.add(exitButton).padBottom(30);
 
         //Add table to stage
+
+
+        //Create Table
+        Table logoTable = new Table();
+        //Set table to fill stage
+        logoTable.setFillParent(true);
+        //Set alignment of contents in the table.
+        logoTable.center().top().padTop(300);
+        logoTable.add(logo);
+
+        stage.addActor(logoTable);
         stage.addActor(mainTable);
+        addVersionText();
 
+    }
 
-        /*
-
-        https://github.com/libgdx/libgdx/wiki/Table#padding
-
-
-        table.row().colspan(3).expandX().fillX();
-        table.add(topLabel).fillX();
-        table.row().colspan(3).expandX().fillX();
-        table.add(slider).fillX();
-        table.row().colspan(3).expandX().fillX();
-        table.add(anotherLabel).fillX();
-        table.row().expandX().fillX();
-
-        table.add(checkBoxA).expandX().fillX();
-        table.add(checkBoxB).expandX().fillX();
-        table.add(checkBoxC).expandX().fillX();
-        table.row().expandX().fillX();;
-
-        table.add(buttonTable).colspan(3);
-
-        buttonTable.pad(16);
-        buttonTable.row().fillX().expandX();
-        buttonTable.add(buttonA).width(cw/3.0f);
-        buttonTable.add(buttonB).width(cw/3.0f);
-
-        tableContainer.setActor(table);
-        stage.addActor(tableContainer);
-         */
+    private void addVersionText() {
+        Label textLabel = new Label(GameConfig.GAME_VERSION, labelStyle);
+        textLabel.setPosition(GAME_VERSION_X_POSITION, GAME_VERSION_Y_POSITION);
+        stage.addActor(textLabel);
     }
 
 }

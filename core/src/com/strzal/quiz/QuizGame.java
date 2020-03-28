@@ -2,6 +2,7 @@ package com.strzal.quiz;
 
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.strzal.gdxUtilLib.BasicGame;
@@ -17,6 +18,7 @@ public class QuizGame extends BasicGame {
 
 	public LevelController levelController;
 	public AudioHandler audioHandler;
+	private ShapeRenderer shapeRenderer;
 
 	@Override
 	public void create () {
@@ -26,6 +28,7 @@ public class QuizGame extends BasicGame {
 		batch = new SpriteBatch();
 		loadingPaths = new LoadingPathsImpl();
 		audioHandler = new AudioHandler(this);
+		shapeRenderer = new ShapeRenderer();
 
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		ScreenManager.getInstance().initialize(this);
@@ -35,5 +38,10 @@ public class QuizGame extends BasicGame {
 	@Override
 	public void dispose () {
 		batch.dispose();
+		shapeRenderer.dispose();
+	}
+
+	public ShapeRenderer getShapeRenderer() {
+		return shapeRenderer;
 	}
 }

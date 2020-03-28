@@ -22,4 +22,8 @@ public class MatchStats {
     public void setNumberOfQuestions(int numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
     }
+
+    public int getNumberOfQuestionsLeft(){
+        return questionsLeft.size();
+    }
 }

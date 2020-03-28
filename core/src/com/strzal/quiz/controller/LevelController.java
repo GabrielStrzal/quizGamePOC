@@ -47,4 +47,11 @@ public class LevelController {
     public int getNumberOfLivesLeft() {
         return numberOfLivesLeft;
     }
+
+    public int getNumberOfQuestionsLeft(){
+        return matchStats.getNumberOfQuestionsLeft();
+    }
+    public int getNumberOfQuestionsAnswered(){
+        return getNumberOfTotalQuestions() - getNumberOfQuestionsLeft() - 1;
+    }
 }

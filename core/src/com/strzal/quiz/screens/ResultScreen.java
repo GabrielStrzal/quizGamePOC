@@ -6,14 +6,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.strzal.gdxUtilLib.BasicGame;
 import com.strzal.gdxUtilLib.screenManager.ScreenManager;
+import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
 public class ResultScreen extends BasicMenuScreen {
 
 
-    public ResultScreen(BasicGame game) {
+    public ResultScreen(QuizGame game) {
         super(game);
     }
 
@@ -29,16 +29,16 @@ public class ResultScreen extends BasicMenuScreen {
         //Set table to fill stage
         mainTable.setFillParent(true);
         //Set alignment of contents in the table.
-        mainTable.center();
+        mainTable.center().bottom().left().padBottom(50).padLeft(40);
         System.out.println();
-        Label resultLabel = new Label("Quiz ended!", skin);
+        Label resultLabel = new Label("Quiz ended!", labelStyle);
         Label resultLabelStats = new Label(
                 game.levelController.getNumberOfCorrectAnswers() + " correct answers of "
-                        + game.levelController.getNumberOfTotalQuestions(), skin);
+                        + game.levelController.getNumberOfTotalQuestions(), labelStyle);
 
 
         //Create buttons
-        ImageTextButton quitReturnToMenuButton = new ImageTextButton("Return to Menu", style);
+        ImageTextButton quitReturnToMenuButton = new ImageTextButton("Return to Menu", greenButtonStyle);
         ImageTextButton exitButton = new ImageTextButton("Exit Game", exitStyle);
 
         
@@ -60,11 +60,9 @@ public class ResultScreen extends BasicMenuScreen {
         //Add buttons to table
         mainTable.add(resultLabel).padBottom(10);
         mainTable.row();
-        mainTable.add(resultLabelStats).padBottom(10);
+        mainTable.add(resultLabelStats).padBottom(100);
         mainTable.row();
-        mainTable.add(quitReturnToMenuButton).padBottom(10);
-        mainTable.row();
-        mainTable.add(exitButton);
+        mainTable.add(quitReturnToMenuButton).padBottom(30);
 
         //Add table to stage
         stage.addActor(mainTable);

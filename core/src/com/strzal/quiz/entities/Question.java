@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 public class Question {
     private int questionID;
+    private String questionType;
     private String questionString;
-    private ArrayList<String> answers;
+    private ArrayList<Answer> answers;
     private int correctAnswer;
     private String imagePath;
+    private String audioPath;
 
     public int getQuestionID() {
         return questionID;
@@ -26,11 +28,11 @@ public class Question {
         this.questionString = questionString;
     }
 
-    public ArrayList<String> getAnswers() {
+    public ArrayList<Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(ArrayList<String> answers) {
+    public void setAnswers(ArrayList<Answer> answers) {
         this.answers = answers;
     }
 
@@ -48,5 +50,21 @@ public class Question {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
+    }
+
+    public String getAudioPath() {
+        return audioPath;
+    }
+
+    public void setAudioPath(String audioPath) {
+        this.audioPath = audioPath;
     }
 }

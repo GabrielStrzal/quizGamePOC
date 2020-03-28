@@ -1,44 +1,52 @@
 package com.strzal.quiz.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.strzal.gdxUtilLib.BasicGame;
 import com.strzal.gdxUtilLib.screenManager.ScreenManager;
+import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.constants.ImagesPaths;
 import com.strzal.quiz.constants.QuestionsPaths;
 import com.strzal.quiz.controller.LevelController;
+import com.strzal.quiz.hud.Hud;
+import com.strzal.quiz.hud.HudMode;
 import com.strzal.quiz.screenManager.ScreenEnum;
 
 public class QuizSelectionScreen extends BasicMenuScreen {
 
+    private Hud hud;
 
-    public QuizSelectionScreen(BasicGame game) {
+    public QuizSelectionScreen(QuizGame game) {
         super(game);
+        hud = new Hud(this.game, HudMode.MENU_MODE);
     }
 
 
     @Override
     public void show() {
         super.show();
-        //Stage should control input:
-        Gdx.input.setInputProcessor(stage);
+        //Not sure
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);
+        inputMultiplexer.addProcessor(hud.getStage());
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
         //Create Table
         Table mainTable = new Table();
         //Set table to fill stage
         mainTable.setFillParent(true);
         //Set alignment of contents in the table.
-        mainTable.center();
+        mainTable.center().bottom().left().padBottom(50).padLeft(40);
 
 
         //Create buttons
-        ImageTextButton barreJaune = new ImageTextButton("Barre jaune", style);
-        ImageTextButton numbersInKorean = new ImageTextButton("Compter de 1 à 10 en coréen", style);
+        ImageTextButton barreJaune = new ImageTextButton("Barre jaune", greenButtonStyle);
+        ImageTextButton numbersInKorean = new ImageTextButton("Compter de 1 à 10 en coréen", greenButtonStyle);
         ImageTextButton exitButton = new ImageTextButton("Exit", exitStyle);
 
 
@@ -77,46 +85,36 @@ public class QuizSelectionScreen extends BasicMenuScreen {
         });
 
         //Add buttons to table
-        mainTable.add(logo).padBottom(100);
         mainTable.row();
         mainTable.add(barreJaune).padBottom(10);
         mainTable.row();
-        mainTable.add(numbersInKorean).padBottom(10);
+        mainTable.add(numbersInKorean).padBottom(30);
         mainTable.row();
-        mainTable.add(exitButton);
+        //mainTable.add(exitButton);
 
         //Add table to stage
+        //Create Table
+        Table logoTable = new Table();
+        //Set table to fill stage
+        logoTable.setFillParent(true);
+        //Set alignment of contents in the table.
+        logoTable.center().top().padTop(300);
+        logoTable.add(logo);
+
+        stage.addActor(logoTable);
         stage.addActor(mainTable);
 
-
-        /*
-
-        https://github.com/libgdx/libgdx/wiki/Table#padding
-
-
-        table.row().colspan(3).expandX().fillX();
-        table.add(topLabel).fillX();
-        table.row().colspan(3).expandX().fillX();
-        table.add(slider).fillX();
-        table.row().colspan(3).expandX().fillX();
-        table.add(anotherLabel).fillX();
-        table.row().expandX().fillX();
-
-        table.add(checkBoxA).expandX().fillX();
-        table.add(checkBoxB).expandX().fillX();
-        table.add(checkBoxC).expandX().fillX();
-        table.row().expandX().fillX();;
-
-        table.add(buttonTable).colspan(3);
-
-        buttonTable.pad(16);
-        buttonTable.row().fillX().expandX();
-        buttonTable.add(buttonA).width(cw/3.0f);
-        buttonTable.add(buttonB).width(cw/3.0f);
-
-        tableContainer.setActor(table);
-        stage.addActor(tableContainer);
-         */
     }
 
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+        hud.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        hud.resize(width, height);
+    }
 }

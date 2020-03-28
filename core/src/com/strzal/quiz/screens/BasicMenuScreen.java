@@ -10,11 +10,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.strzal.gdxUtilLib.BasicGame;
+import com.badlogic.gdx.utils.viewport.*;
 import com.strzal.gdxUtilLib.utils.GdxUtils;
 import com.strzal.quiz.QuizGame;
 import com.strzal.quiz.config.GameConfig;
@@ -29,12 +28,14 @@ public class BasicMenuScreen extends ScreenAdapter {
     private TextureAtlas atlas;
     protected Skin skin;
 
-    protected ImageTextButton.ImageTextButtonStyle style;
+    protected ImageTextButton.ImageTextButtonStyle greenButtonStyle;
+    protected ImageTextButton.ImageTextButtonStyle blueButtonStyle;
     protected ImageTextButton.ImageTextButtonStyle exitStyle;
+    protected Label.LabelStyle labelStyle;
 
     QuizGame game;
 
-    public BasicMenuScreen(BasicGame game)
+    public BasicMenuScreen(QuizGame game)
     {
         atlas = new TextureAtlas(ImagesPaths.UI_SKIN_ATLAS);
         skin = new Skin(Gdx.files.internal(ImagesPaths.UI_SKIN_JSON), atlas);
@@ -57,15 +58,27 @@ public class BasicMenuScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        //Create Style
-        Texture buttonTexture = game.getAssetManager().get(ImagesPaths.QUESTION_BUTTON);
-        Texture buttonTexturePressed = game.getAssetManager().get(ImagesPaths.QUESTION_BUTTON_PRESSED);
-        style = new ImageTextButton.ImageTextButtonStyle(
+
+        BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/sonic_comic.fnt"));
+
+        //Create Green Button Style
+        Texture buttonTexture = game.getAssetManager().get(ImagesPaths.QUESTION_GREEN_BUTTON);
+        Texture buttonTexturePressed = game.getAssetManager().get(ImagesPaths.QUESTION_GREEN_BUTTON_PRESSED);
+        greenButtonStyle = new ImageTextButton.ImageTextButtonStyle(
                 new TextureRegionDrawable(buttonTexture),
                 new TextureRegionDrawable(buttonTexturePressed),
                 new TextureRegionDrawable(buttonTexture),
-                new BitmapFont());
+                font);
 
+        //Create Blue Button Style
+        Texture blueButtonTexture = game.getAssetManager().get(ImagesPaths.QUESTION_BLUE_BUTTON);
+        Texture blueButtonTexturePressed = game.getAssetManager().get(ImagesPaths.QUESTION_BLUE_BUTTON_PRESSED);
+        Texture blueButtonTextureChecked = game.getAssetManager().get(ImagesPaths.QUESTION_BLUE_BUTTON_CHECKED);
+        blueButtonStyle = new ImageTextButton.ImageTextButtonStyle(
+                new TextureRegionDrawable(blueButtonTexture),
+                new TextureRegionDrawable(blueButtonTexturePressed),
+                new TextureRegionDrawable(blueButtonTextureChecked),
+                font);
 
         //Create Exit Style
         Texture exitButtonTexture = game.getAssetManager().get(ImagesPaths.EXIT_BUTTON);
@@ -74,7 +87,10 @@ public class BasicMenuScreen extends ScreenAdapter {
                 new TextureRegionDrawable(exitButtonTexture),
                 new TextureRegionDrawable(exitButtonTexturePressed),
                 new TextureRegionDrawable(exitButtonTexture),
-                new BitmapFont());
+                font);
+
+        //text Label style
+        labelStyle = new Label.LabelStyle(font, Color.GRAY);
     }
 
     @Override
